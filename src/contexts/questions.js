@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import usePersistState from '../hooks/usePersistState'
 
 export const Questions_data = createContext(null);
 

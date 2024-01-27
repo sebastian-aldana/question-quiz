@@ -2,6 +2,7 @@
 
 import { useContext, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -62,36 +63,48 @@ const Quiz = () => {
 
   if (questions?.length > 0) {
     return (
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          {questions[positionQuestion].category}
-        </Typography>
+      <div className="flex justify-center items-center min-h-screen">
+        <Card sx={{ minWidth: 275 }}>
+          <CardContent className="flex flex-col justify-center items-center ">
+            <Typography
+              sx={{ fontSize: 14 }}
+              color="text.secondary"
+              gutterBottom
+            >
+              {questions[positionQuestion].category}
+            </Typography>
 
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          <div
-            dangerouslySetInnerHTML={{
-              __html: DOMPurify.sanitize(questions[positionQuestion].question),
-            }}
-          />
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          {positionQuestion} of {questions?.length}
-        </Typography>
-        <Button
-          onClick={() => onQuestionAnswer(positionQuestion, true)}
-          variant="outlined"
-          color="success"
-        >
-          correct
-        </Button>
-        <Button
-          onClick={() => onQuestionAnswer(positionQuestion, false)}
-          variant="outlined"
-          color="error"
-        >
-          incorrect
-        </Button>
-      </CardContent>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(
+                    questions[positionQuestion].question
+                  ),
+                }}
+              />
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} color="text.secondary">
+              {positionQuestion} of {questions?.length}
+            </Typography>
+            <div className="grid gap-2 grid-cols-2">
+              <Button
+                onClick={() => onQuestionAnswer(positionQuestion, true)}
+                variant="outlined"
+                color="success"
+              >
+                correct
+              </Button>
+              <Button
+                onClick={() => onQuestionAnswer(positionQuestion, false)}
+                variant="outlined"
+                color="error"
+              >
+                incorrect
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     );
   }
   return "error";

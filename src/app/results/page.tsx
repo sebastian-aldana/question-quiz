@@ -2,6 +2,7 @@
 
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
+import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
@@ -18,34 +19,42 @@ const Results = () => {
   };
 
   return (
-    <CardContent>
-      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-        You Scored
-      </Typography>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        {results.correctAnswers}/{questions.length}
-      </Typography>
+    <div className="flex justify-center items-center min-h-screen">
+      <Card sx={{ minWidth: 275 }}>
+        <CardContent className="flex flex-col justify-center items-center ">
+          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            You Scored
+          </Typography>
+          <Typography sx={{ mb: 1.5 }} color="text.secondary">
+            {results.correctAnswers}/{questions.length}
+          </Typography>
 
-      {questions.map((question: any, index: number) => {
-        return (
-          <>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              {results.answers[index] ? "✅" : "❌"}
-            </Typography>
-            <Typography sx={{ mb: 1.5 }} color="text.secondary">
-              <div
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(question.question),
-                }}
-              />
-            </Typography>
-          </>
-        );
-      })}
-      <Button onClick={goToHome} variant="outlined">
-        play again
-      </Button>
-    </CardContent>
+          {questions.map((question: any, index: number) => {
+            return (
+              <div className="flex  self-start" key={index}>
+                <Typography
+                  sx={{ mb: 1.5 }}
+                  color="text.secondary"
+                  className="ml-5"
+                >
+                  {results.answers[index] ? "✅" : "❌"}
+                </Typography>
+                <Typography sx={{ mb: 1.5 }} color="text.secondary">
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: DOMPurify.sanitize(question.question),
+                    }}
+                  />
+                </Typography>
+              </div>
+            );
+          })}
+          <Button onClick={goToHome} variant="outlined">
+            play again
+          </Button>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
